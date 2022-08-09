@@ -1,13 +1,13 @@
 <div class="container">
-  <div class="d-flex justify-content-between align-items-center">
+  <div class="d-flex justify-content-between align-items-center mt-3">
     <h1>Restaurants</h1>
-    <%= link_to '➕', new_restaurant_path, class: 'btn btn-light'  %>
+    <%= link_to new_restaurant_path do %>
+      <i class="fas fa-plus-square btn-light"></i>
+    <% end %>
   </div>
-  <div class="cards">
+  <div class="cards mb-5">
     <% @restaurants.each do |restaurant| %>
-      <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/breakfast.jpg)">
-        <%= link_to restaurant.name, restaurant_path(restaurant), style: 'text-decoration: none; color: white' %>
-      </div>
+      <%= render 'restaurants/card', restaurant: restaurant %>
     <% end %>
   </div>
 </div>
