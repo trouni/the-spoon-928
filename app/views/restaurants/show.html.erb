@@ -1,0 +1,8 @@
+<div class="container">
+  <h1><%= @restaurant.name %></h1>
+  <p><%= @restaurant.address %></p>
+  <p><%= "⭐️" * @restaurant.rating %></p>
+  <p><%= link_to 'Restaurants', restaurants_path  %></p>
+  <p><%= link_to '✏️', edit_restaurant_path(@restaurant)  %></p>
+  <p><%= link_to 'X', restaurant_path(@restaurant), data: { turbo_method: :delete, turbo_confirm: "Delete #{@restaurant.name}?" } %></p>
+</div>
