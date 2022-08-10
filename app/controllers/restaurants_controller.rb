@@ -1,6 +1,16 @@
 class RestaurantsController < ApplicationController
+  def top
+    @restaurants = Restaurant.where(rating: 5)
+    # render :top
+  end
+
+  def chef
+    @restaurant = Restaurant.find(params[:id])
+  end
+
   def index
     @restaurants = Restaurant.all
+    # render :index
   end
 
   def show
@@ -48,6 +58,6 @@ class RestaurantsController < ApplicationController
 
   # strong params -> whitelisting the attributes that the user can give us
   def restaurant_params
-    params.require(:restaurant).permit(:name, :address, :rating)
+    params.require(:restaurant).permit(:name, :address, :rating, :category)
   end
 end

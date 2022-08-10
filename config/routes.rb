@@ -1,25 +1,25 @@
 Rails.application.routes.draw do
-  # verb '/path', to: 'controller#action', as: :prefix
-  # Create
-  # we need a page for the form
-  get '/restaurants/new', to: 'restaurants#new', as: :new_restaurant
-  # we need a palce to send the form information
-  post '/restaurants', to: 'restaurants#create', as: :restaurants
-
-  # Read
-  get '/restaurants', to: 'restaurants#index'
-  get '/restaurants/:id', to: 'restaurants#show', as: :restaurant
+  resources :reviews, only: [:destroy]
+  resources :restaurants do
+    resources :reviews, only: [:new, :create]
 
 
-  # Update
-  # we need a page for the form
-  get '/restaurants/:id/edit', to: 'restaurants#edit', as: :edit_restaurant
-  # we need a palce to send the form information
-  patch '/restaurants/:id', to: 'restaurants#update'
 
-  # Destroy
-  delete '/restaurants/:id', to: 'restaurants#destroy'
+
+    collection do
+      get :top
+    end
+    member do
+      get :chef
+    end
+  end
 end
+
+# post '/restaurants/:restaurant_id/reviews'
+# get '/restaurants/:id/chef', to: 'restaurants#chef'
+# get '/restaurants/top', to: 'restaurants#top', as: :top_restaurants
+# collection -> when it effects all restaurants
+# member     -> when it effects only one restaurant
 
 
 # See all restaurants -> index
