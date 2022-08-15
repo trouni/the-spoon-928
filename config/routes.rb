@@ -1,11 +1,9 @@
 Rails.application.routes.draw do
+  devise_for :users
+  root to: 'restaurants#index'
   resources :reviews, only: [:destroy]
   resources :restaurants do
     resources :reviews, only: [:new, :create]
-
-
-
-
     collection do
       get :top
     end
