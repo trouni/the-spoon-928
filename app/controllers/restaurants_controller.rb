@@ -2,31 +2,32 @@ class RestaurantsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :top, :show]
 
   def top
-    @restaurants = Restaurant.where(rating: 5)
+    @restaurants = policy_scope(Restaurant).where(rating: 5)
+    skip_authorization
     # render :top
   end
 
-  def chef
-    @restaurant = Restaurant.find(params[:id])
-  end
-
   def index
-    @restaurants = Restaurant.all
+    @restaurants = policy_scope(Restaurant) # returns only the restaurants that the user is allowed to see
     # render :index
   end
 
   def show
     @restaurant = Restaurant.find(params[:id])
+    authorize @restaurant # check if the current_user is allowed to perform this action (show) with the @restaurant
+    # ⚠️ `authorize` does not mean we grant access
   end
 
   def new
     # this instance is for the form
     @restaurant = Restaurant.new
+    authorize @restaurant
   end
 
   def create
     @restaurant = Restaurant.new(restaurant_params)
     @restaurant.user = current_user
+    authorize @restaurant
 
     if @restaurant.save
       redirect_to restaurant_path(@restaurant)
@@ -40,12 +41,12 @@ class RestaurantsController < ApplicationController
   def edit
     # this instance is for the form
     @restaurant = Restaurant.find(params[:id])
-    redirect_to restaurants_path, notice: 'You are not allowed to edit this restaurant' if current_user != @restaurant.user
+    authorize @restaurant # the `@restaurant` on the left of the `authorize` is passed as the `record` in the policy
   end
   
   def update
     @restaurant = Restaurant.find(params[:id])
-    redirect_to restaurants_path, notice: 'You are not allowed to edit this restaurant' if current_user != @restaurant.user
+    authorize @restaurant
 
     if @restaurant.update(restaurant_params)
       redirect_to restaurant_path(@restaurant)
@@ -57,6 +58,7 @@ class RestaurantsController < ApplicationController
 
   def destroy
     @restaurant = Restaurant.find(params[:id])
+    authorize @restaurant
     @restaurant.destroy
     redirect_to restaurants_path, status: :see_other
   end

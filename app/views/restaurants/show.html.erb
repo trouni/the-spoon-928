@@ -11,11 +11,15 @@
       <div class="d-flex align-items-center">
         <h1 class="m-0"><%= @restaurant.name %></h1>
         <p class="m-0 ms-2" style="font-size: 0.8em">
-          <% @restaurant.rating.times do %>
-            <i class="fas fa-star"></i>
-          <% end %>
-          <% (5 - @restaurant.rating).times do %>
-            <i class="far fa-star"></i>
+          <% if @restaurant.rating %>
+            <% @restaurant.rating.times do %>
+              <i class="fas fa-star"></i>
+            <% end %>
+            <% (5 - @restaurant.rating).times do %>
+              <i class="far fa-star"></i>
+            <% end %>
+          <% else %>
+            <i class="far fa-star"></i> No ratings yet
           <% end %>
         </p>
       </div>
