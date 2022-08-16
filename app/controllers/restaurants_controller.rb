@@ -26,6 +26,8 @@ class RestaurantsController < ApplicationController
 
   def create
     @restaurant = Restaurant.new(restaurant_params)
+    @restaurant.user = current_user
+
     if @restaurant.save
       redirect_to restaurant_path(@restaurant)
     else
@@ -38,10 +40,13 @@ class RestaurantsController < ApplicationController
   def edit
     # this instance is for the form
     @restaurant = Restaurant.find(params[:id])
+    redirect_to restaurants_path, notice: 'You are not allowed to edit this restaurant' if current_user != @restaurant.user
   end
-
+  
   def update
     @restaurant = Restaurant.find(params[:id])
+    redirect_to restaurants_path, notice: 'You are not allowed to edit this restaurant' if current_user != @restaurant.user
+
     if @restaurant.update(restaurant_params)
       redirect_to restaurant_path(@restaurant)
     else
