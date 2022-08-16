@@ -1,8 +1,9 @@
 class Restaurant < ApplicationRecord
-  # associations
+  # Associations
   has_many :reviews # builds a method for us -> daniel.reviews
   belongs_to :user
-  # validations
+
+  # Validations
   validates :name, presence: true
   validates :address, presence: true
 end
