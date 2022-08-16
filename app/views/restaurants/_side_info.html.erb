@@ -12,15 +12,17 @@
 <p class="fw-lighter opacity-75">
   <i class="fas fa-utensils"></i><span class='ms-2'><%= @restaurant.category %></span>
 </p>
-<div class="d-flex">
-  <% if policy(@restaurant).edit? %>
-    <%= link_to edit_restaurant_path(@restaurant) do %>
-      <i class="fas fa-pencil-alt btn-light mx-1"></i>
+<% if user_signed_in? %>
+  <div class="d-flex">
+    <% if policy(@restaurant).edit? %>
+      <%= link_to edit_restaurant_path(@restaurant) do %>
+        <i class="fas fa-pencil-alt btn-light mx-1"></i>
+      <% end %>
     <% end %>
-  <% end %>
-  <% if policy(@restaurant).destroy? %>
-    <%= link_to restaurant_path(@restaurant), data: { turbo_method: :delete, turbo_confirm: "Do you want to delete #{@restaurant.name}" } do %>
-      <i class="fas fa-trash btn-light mx-1"></i>
+    <% if policy(@restaurant).destroy? %>
+      <%= link_to restaurant_path(@restaurant), data: { turbo_method: :delete, turbo_confirm: "Do you want to delete #{@restaurant.name}" } do %>
+        <i class="fas fa-trash btn-light mx-1"></i>
+      <% end %>
     <% end %>
-  <% end %>
-</div>
+  </div>
+<% end %>
