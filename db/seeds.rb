@@ -1,6 +1,6 @@
 puts 'Removing the restaurants and users...'
-User.destroy_all
 Restaurant.destroy_all
+User.destroy_all
 
 puts 'Creating users'
 User.create!(email: 'trouni@me.com', name: 'Trouni', password: '123123', avatar_url: 'https://kitt.lewagon.com/placeholder/users/trouni')
