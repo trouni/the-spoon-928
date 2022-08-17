@@ -1,8 +1,8 @@
 <p>
-  <%= image_tag @restaurant.user.avatar_url, class: "avatar" %> <%= @restaurant.user.name %>
+  <%= image_tag restaurant.user.avatar_url, class: "avatar" %> <%= restaurant.user.name %>
 </p>
 <p class="fw-lighter opacity-75">
-  <i class="fas fa-map-pin"></i><span class='ms-2'><%= @restaurant.address %></span>
+  <i class="fas fa-map-pin"></i><span class='ms-2'><%= restaurant.address %></span>
 </p>
 <p class="fw-lighter opacity-75">
   <% rand(2..5).times do %>
@@ -10,17 +10,17 @@
   <% end %>
 </p>
 <p class="fw-lighter opacity-75">
-  <i class="fas fa-utensils"></i><span class='ms-2'><%= @restaurant.category %></span>
+  <i class="fas fa-utensils"></i><span class='ms-2'><%= restaurant.category %></span>
 </p>
 <% if user_signed_in? %>
   <div class="d-flex">
-    <% if policy(@restaurant).edit? %>
-      <%= link_to edit_restaurant_path(@restaurant) do %>
+    <% if policy(restaurant).edit? %>
+      <%= link_to edit_restaurant_path(restaurant) do %>
         <i class="fas fa-pencil-alt btn-light mx-1"></i>
       <% end %>
     <% end %>
-    <% if policy(@restaurant).destroy? %>
-      <%= link_to restaurant_path(@restaurant), data: { turbo_method: :delete, turbo_confirm: "Do you want to delete #{@restaurant.name}" } do %>
+    <% if policy(restaurant).destroy? %>
+      <%= link_to restaurant_path(restaurant), data: { turbo_method: :delete, turbo_confirm: "Do you want to delete #{restaurant.name}" } do %>
         <i class="fas fa-trash btn-light mx-1"></i>
       <% end %>
     <% end %>
