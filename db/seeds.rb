@@ -1,3 +1,5 @@
+require 'yaml'
+
 puts 'Removing the restaurants and users...'
 Restaurant.destroy_all
 User.destroy_all
@@ -8,11 +10,15 @@ User.create!(email: 'doug@me.com', name: 'Doug', password: '123123', avatar_url:
 
 chefs = ['Nikki', 'Joshua', 'Yu', 'Bill', 'Daniel', 'Yaya', 'Mounir', 'Soufiane', 'Adam', 'Ayaka', 'Alison', 'Kyle', 'Alex', 'Tony', 'Sae', 'Oanh', 'Andre', 'Mark', 'Leo', 'Jan', 'Koki', 'Malene', 'Carla', 'Song']
 
+# Load addresses YML file
+addresses_file = File.open('db/addresses.yml').read
+addresses = YAML.load(addresses_file)
+
 puts "Creating #{chefs.count} Restaurants..."
 chefs.shuffle.each do |name|
   Restaurant.create!(
     name: "#{name}'s #{Faker::Restaurant.name}",
-    address: Faker::Address.street_address,
+    address: addresses.sample,
     rating: rand(1..5),
     category: Faker::Restaurant.type.split.first,
     chef_name: name,
