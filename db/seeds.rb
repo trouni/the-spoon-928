@@ -19,6 +19,7 @@ chefs.shuffle.each do |name|
   Restaurant.create!(
     name: "#{name}'s #{Faker::Restaurant.name}",
     address: addresses.sample,
+    description: Faker::Restaurant.description,
     rating: rand(1..5),
     category: Faker::Restaurant.type.split.first,
     chef_name: name,
