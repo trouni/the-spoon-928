@@ -31,7 +31,10 @@
             <li><%= review.content %> <%= link_to 'x', review_path(review), data: { turbo_method: :delete, turbo_confirm: 'Delete review?' }  %></li>
           <% end %>
         <% else %>
-          <li><%= link_to 'Be the first to review', new_restaurant_review_path(@restaurant) %></li>
+          <p>No reviews yet</p>
+          <% if user_signed_in? %>
+            <%= link_to 'Be the first to review', new_restaurant_review_path(@restaurant) %>
+          <% end %>
         <% end %>
       </ul>
     </div>
