@@ -57,7 +57,14 @@ class RestaurantsController < ApplicationController
     authorize @restaurant
 
     if @restaurant.update(restaurant_params)
-      redirect_to restaurant_path(@restaurant)
+      respond_to do |format|
+        format.html { redirect_to restaurant_path(@restaurant) }        
+        format.text do
+          render partial: 'restaurants/show_content',
+                 locals: { restaurant: @restaurant },
+                 formats: [:html]
+        end
+      end
     else
       # if it fails, show the edit form again
       render :edit

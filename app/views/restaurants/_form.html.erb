@@ -1,4 +1,11 @@
-<%= simple_form_for @restaurant do |f| %>
+<%= simple_form_for restaurant,
+      html: {
+        class: 'd-none',
+        data: {
+          action: 'submit->side-info#update',
+          'side-info-target': "form"
+        }
+      } do |f| %>
   <%= f.input :name %>
   <%= f.input :address,
     input_html: {data: {address_autocomplete_target: "address"}, class: "d-none" },
